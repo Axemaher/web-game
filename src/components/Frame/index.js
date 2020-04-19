@@ -9,7 +9,7 @@ const StyledContainer = styled.div`
     }
 `;
 
-const StyledFrameWrapper = styled.div`
+export const StyledFrameWrapper = styled.div`
     height: fit-content;
     border-style: solid;
     display: flex;
@@ -24,7 +24,7 @@ const StyledFrameWrapper = styled.div`
     color: white;
 `;
 
-const StyledFrame = styled.div`
+export const StyledFrame = styled.div`
     width: calc(100% - 5px);
     height: calc(100% - 5px);
     background-color: transparent;

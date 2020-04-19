@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import Frame from '../../components/Frame'
@@ -8,6 +8,7 @@ import H1 from '../../components/H1'
 import x from '../../images/x.png'
 import LoadingSpinner from '../../components/LoadingSpinner'
 import { endpoitUrls } from '../../utils/api'
+import { NotificationContext } from '../../utils/context';
 
 const StyledModalWrapper = styled.div`
     padding-top: 20px;
@@ -73,16 +74,22 @@ const StyledError = styled.span`
     font-size: 10px;
 `;
 
+
 const ModalWrapper = ({ modal, setModal }) => {
+    // notification
+    const { setNotificationData } = useContext(NotificationContext);
 
     const [username, setUsername] = useState("")
+    const [basename, setBasename] = useState("")
     const [password, setPassword] = useState("")
     const [email, setEmail] = useState("")
     const [errors, setErrors] = useState({
         wrongUsername: false,
+        wrongBasename: false,
         wrongPassword: false,
         wrongEmail: false,
         emptyUsername: false,
+        emptyBasename: false,
         emptyPassword: false,
         emptyEmail: false,
         usernameExist: false,
@@ -92,20 +99,13 @@ const ModalWrapper = ({ modal, setModal }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        setErrors(errors => ({ ...errors, wrongUsername: false }))
-        setErrors(errors => ({ ...errors, wrongPassword: false }))
-        setErrors(errors => ({ ...errors, wrongEmail: false }))
-        setErrors(errors => ({ ...errors, emptyUsername: false }))
-        setErrors(errors => ({ ...errors, emptyPassword: false }))
-        setErrors(errors => ({ ...errors, emptyEmail: false }))
-        setErrors(errors => ({ ...errors, usernameExist: false }))
 
-
+        setErrors(errors => (Object.keys(errors).reduce((acc, key) => { acc[key] = false; return acc; }, {})))
 
         if (username.length > 0 && email.length > 0 && password.length > 0) {
             setLoading(true)
             axios.post(endpoitUrls.registerUrl,
-                { username, password, email },
+                { username, name: basename, password, email },
                 {
                     headers: {
                         'Content-Type': 'application/json; charset=UTF-8'
@@ -114,6 +114,10 @@ const ModalWrapper = ({ modal, setModal }) => {
             ).then(resp => {
                 setLoading(false)
                 if (resp) {
+                    setNotificationData({
+                        visible: true,
+                        text: 'Account registered correctly, you can log in now'
+                    })
                     setModal({ ...modal, showRegisterModal: false })
                 }
             }).catch(err => {
@@ -132,16 +136,21 @@ const ModalWrapper = ({ modal, setModal }) => {
                     if (err.response.data[o].type === 'Size.user.username') {
                         setErrors(errors => ({ ...errors, wrongUsername: true }))
                     }
+                    if (err.response.data[o].type === 'Size.user.basename') {
+                        setErrors(errors => ({ ...errors, wrongBasename: true }))
+                    }
                 }
                 return true;
             });
         } else {
             setLoading(false)
             !username && setErrors(errors => ({ ...errors, emptyUsername: true }))
+            !basename && setErrors(errors => ({ ...errors, emptyBasename: true }))
             !password && setErrors(errors => ({ ...errors, emptyPassword: true }))
             !email && setErrors(errors => ({ ...errors, emptyEmail: true }))
         }
     }
+
     return (
         <StyledModalWrapper>
             <Frame>
@@ -161,7 +170,20 @@ const ModalWrapper = ({ modal, setModal }) => {
                         {errors.wrongUsername && <StyledError>please check your username </StyledError>}
                         {errors.emptyUsername && <StyledError>write your username</StyledError>}
                         {errors.usernameExist && <StyledError>username exist</StyledError>}
+                    </StyledInputWrapper>
 
+                    <StyledInputWrapper>
+                        <StyledLabel htmlFor="basename">base name</StyledLabel>
+                        <Input
+                            onChange={e => setBasename(e.target.value)}
+                            id="basename"
+                            name="basename"
+                            placeholder="basename"
+                            type="text"
+                            value={basename}
+                        />
+                        {errors.wrongBasename && <StyledError>please check your base name </StyledError>}
+                        {errors.emptyBasename && <StyledError>write your base name</StyledError>}
                     </StyledInputWrapper>
 
                     <StyledInputWrapper>

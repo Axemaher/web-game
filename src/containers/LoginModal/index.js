@@ -87,10 +87,7 @@ const ModalWrapper = ({ modal, setModal }) => {
     const handleSubmit = e => {
         e.preventDefault();
         setLoading(true)
-        setErrors(errors => ({ ...errors, wrongUsername: false }))
-        setErrors(errors => ({ ...errors, wrongPassword: false }))
-        setErrors(errors => ({ ...errors, emptyUsername: false }))
-        setErrors(errors => ({ ...errors, emptyPassword: false }))
+        setErrors(errors => (Object.keys(errors).reduce((acc, key) => { acc[key] = false; return acc; }, {})))
 
         if (username.length > 0 && password.length > 0) {
 
@@ -106,10 +103,10 @@ const ModalWrapper = ({ modal, setModal }) => {
                 }
             ).then(resp => {
                 setLoading(false)
+                localStorage.setItem('token', resp.headers.authorization);
                 if (resp) {
                     setModal({ ...modal, showLoginModal: false })
                 }
-                localStorage.setItem('token', resp.headers.authorization);
                 window.location.reload()
             }).catch(err => {
                 setLoading(false)

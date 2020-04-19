@@ -4,12 +4,13 @@ import { theme } from '../utils/theme'
 
 const GlobalStyle = createGlobalStyle`
   body {
-    font-family: 'francois one', sans-serif;
+    font-family: 'Oldenburg', cursive;
   }
   *, *::before, *::after{
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Oldenburg', cursive;
   }
 `;
 
@@ -19,18 +20,18 @@ const StyledGlobalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: ${({ theme }) => theme.colors.globalBackground};
+  background-image: ${({ theme }) => theme.colors.globalBackground};
 `;
 
 const Layout = ({ children }) => (
-    <ThemeProvider theme={theme}>
-        <>
-            <GlobalStyle />
-            <StyledGlobalWrapper>
-                {children}
-            </StyledGlobalWrapper>
-        </>
-    </ThemeProvider>
+  <ThemeProvider theme={theme}>
+    <>
+      <GlobalStyle />
+      <StyledGlobalWrapper>
+        {children}
+      </StyledGlobalWrapper>
+    </>
+  </ThemeProvider>
 )
 
 export default Layout

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import btnBg from '../../images/btn.png'
+import ButtonHeavyBg from '../../images/ButtonHeavyBg.png'
 
 const StyledButton = styled.button`
     color: white;
@@ -9,10 +9,10 @@ const StyledButton = styled.button`
     cursor: pointer;
     margin-top: 30px;
     border-width: 20px 20px 22px;
-    -moz-border-image: url(${btnBg}) 20 20 22 repeat stretch;
-    -webkit-border-image: url(${btnBg}) 20 20 22 repeat stretch;
-    -o-border-image: url(${btnBg}) 20 20 22 repeat stretch;
-    border-image: url(${btnBg}) 20 20 22 fill repeat stretch;
+    -moz-border-image: url(${ButtonHeavyBg}) 20 20 22 repeat stretch;
+    -webkit-border-image: url(${ButtonHeavyBg}) 20 20 22 repeat stretch;
+    -o-border-image: url(${ButtonHeavyBg}) 20 20 22 repeat stretch;
+    border-image: url(${ButtonHeavyBg}) 20 20 22 fill repeat stretch;
     opacity: .9;
     transition: all .2s;
     width: 160px;
@@ -22,10 +22,10 @@ const StyledButton = styled.button`
     }
 `;
 
-const Button = ({ children }) => {
+const ButtonHeavy = ({ children }) => {
     return (
         <StyledButton>{children}</StyledButton>
     );
 }
 
-export default Button;
+export default ButtonHeavy;

@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
-import Frame from '../../components/Frame'
+import Frame from '../../components/Frames/FrameHeavy'
 import Input from '../../components/Input'
-import Button from '../../components/Button'
+import ButtonHeavy from '../../components/Buttons/ButtonHeavy'
 import H1 from '../../components/H1'
 import x from '../../images/x.png'
 import LoadingSpinner from '../../components/LoadingSpinner'
@@ -215,7 +215,7 @@ const ModalWrapper = ({ modal, setModal }) => {
                         {errors.emptyPassword && <StyledError>write your password</StyledError>}
                     </StyledInputWrapper>
 
-                    <Button type="submit">REGISTER</Button>
+                    <ButtonHeavy type="submit">REGISTER</ButtonHeavy>
 
                 </StyledForm>
                 <StyledButton onClick={() => setModal({ ...modal, showRegisterModal: false })}><StyledXIcon></StyledXIcon></StyledButton>

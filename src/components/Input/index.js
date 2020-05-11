@@ -4,7 +4,6 @@ import inputBg from '../../images/inputBg.png';
 
 const StyledInput = styled.input`
     width: 100%;
-    margin-bottom: 10px;
     border-style: solid;
     background: transparent;
     border-width: 12px 12px 12px 11px;

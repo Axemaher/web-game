@@ -14,7 +14,7 @@ function App() {
 
   // authentication
   const initialUserData = {
-    logged: null,
+    logged: true,
   }
 
   const [userData, setUserData] = useState(initialUserData);
@@ -28,36 +28,36 @@ function App() {
 
   const { Provider } = NotificationContext;
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token !== null) {
-      const url_cors = 'https://cors-anywhere.herokuapp.com/';
-      axios({
-        method: 'get',
-        url: url_cors + 'http://185.36.169.227:5088/api/user',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': token,
-          'access-control-allow-credentials': "true",
-          'access-control-allow-origin': '*',
-          'crossdomain': 'true'
-        }
-      })
-        .then(response => {
-          console.log(response)
-          setUserData(userData => ({ ...userData, logged: true }))
-          return <Redirect to="/dashboard" />
-        })
-        .catch(error => {
-          console.log(error)
-          setUserData(userData => ({ ...userData, logged: false }))
-        });
-    } else {
-      setTimeout(() => {
-        setUserData(userData => ({ ...userData, logged: false }))
-      }, 1000);
-    }
-  }, [])
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token !== null) {
+  //     const url_cors = 'https://cors-anywhere.herokuapp.com/';
+  //     axios({
+  //       method: 'get',
+  //       url: url_cors + 'http://185.36.169.227:5088/api/user',
+  //       headers: {
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //         'Authorization': token,
+  //         'access-control-allow-credentials': "true",
+  //         'access-control-allow-origin': '*',
+  //         'crossdomain': 'true'
+  //       }
+  //     })
+  //       .then(response => {
+  //         console.log(response)
+  //         setUserData(userData => ({ ...userData, logged: true }))
+  //         return <Redirect to="/dashboard" />
+  //       })
+  //       .catch(error => {
+  //         console.log(error)
+  //         setUserData(userData => ({ ...userData, logged: false }))
+  //       });
+  //   } else {
+  //     setTimeout(() => {
+  //       setUserData(userData => ({ ...userData, logged: false }))
+  //     }, 1000);
+  //   }
+  // }, [])
 
   const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route

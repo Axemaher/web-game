@@ -2,15 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import frame from '../../images/frame.png';
 
-const StyledContainer = styled.div`
-    height: min-content;
+
+
+export const StyledFrameWrapper = styled.div`
     @media ${({ theme }) => theme.device.mobileL} {
         width: 100%;
     }
-`;
-
-export const StyledFrameWrapper = styled.div`
-    height: fit-content;
     border-style: solid;
     display: flex;
     justify-content: center;
@@ -22,13 +19,16 @@ export const StyledFrameWrapper = styled.div`
     -o-border-image: url(${frame}) 19 17 19 19 repeat stretch;
     border-image: url(${frame}) 19 17 19 19 fill repeat stretch;
     color: white;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
 `;
 
 export const StyledFrame = styled.div`
     width: calc(100% - 5px);
     height: calc(100% - 5px);
     background-color: transparent;
-    padding: 30px;
+    padding: 10px;
     background: rgb(236,236,236);
     background: radial-gradient(circle, rgb(43, 43, 43) 11%, rgba(0,0,0,0) 59%);
     @media ${({ theme }) => theme.device.mobileL} {
@@ -36,16 +36,12 @@ export const StyledFrame = styled.div`
     }
 `;
 
-const Frame = ({ children }) => {
+const FrameHeavy = ({ children }) => {
     return (
-        <StyledContainer>
-            <StyledFrameWrapper>
-                <StyledFrame>
-                    {children}
-                </StyledFrame>
-            </StyledFrameWrapper>
-        </StyledContainer>
+        <StyledFrameWrapper>
+            {children}
+        </StyledFrameWrapper>
     );
 }
 
-export default Frame;
+export default FrameHeavy;

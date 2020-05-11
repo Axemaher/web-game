@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import styled from 'styled-components'
-import { StyledFrameWrapper, StyledFrame } from '../Frame'
+import { StyledFrameWrapper, StyledFrame } from '../Frames/FrameHeavy'
 import { NotificationContext } from '../../utils/context';
 
 const StyledContainer = styled.div`
